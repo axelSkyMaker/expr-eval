@@ -3,6 +3,8 @@ import substitute from './substitute';
 import evaluate from './evaluate';
 import expressionToString from './expression-to-string';
 import getSymbols from './get-symbols';
+import { Parser } from './parser';
+import createGenetic from './genetic.js';
 
 export function Expression(tokens, parser) {
   this.tokens = tokens;
@@ -31,12 +33,44 @@ Expression.prototype.evaluate = function (values) {
   return evaluate(this.tokens, this, values);
 };
 
-Expression.prototype.maximize = function ( args) {
+Expression.prototype.maximize = function ( args ) {
   args = args || {};
   var constraints = args.constraints || [];
+  console.log("constraints should be string", constraints);
+  var scope = this;
+
+
+
   var method = args.method;
   var bestValue = -Infinity;
+
+
+  //this will be called with optimal value
+  var callBack = args.callBack  || function( bestValue ){
+      console.log("bestValue: " + bestValue)
+  };
+
+
+  var genetic = createGenetic(callBack);
+
+  var userData = 
+  {
+      constraints: constraints
+  };
+ 
   
+  var config = {
+    "iterations": 100
+    , "size": 100
+    , "crossover": 0.9
+    , "mutation": 0.2
+    , "skip": 500
+  };
+
+
+
+genetic.evolve(config,userData);
+
   //we have to have some constrains to make linear optimisation
   if(constraints.length > 0){
 

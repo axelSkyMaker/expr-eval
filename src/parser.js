@@ -133,9 +133,9 @@ Parser.prototype.evaluate = function (expr, variables) {
   return this.parse(expr).evaluate(variables);
 };
 
-Parser.prototype.maximize = function (expr, variables) {
-    return this.parse(expr).maximize(variables);
-};
+// Parser.prototype.maximize = function (expr, variables) {
+//     return this.parse(expr).maximize(variables);
+// };
 
 var sharedParser = new Parser();
 

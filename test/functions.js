@@ -48,16 +48,27 @@ describe('Functions', function () {
   });
 
   describe('simplex_maximize(n)', function () {
-    it('should return a solution with constrains', function () {
+    it('should return a solution with constrains', function (done) {
         var parser = new Parser();
-        var expression = parser.parse("2*x1 + 3*x2");
-        expect(expression.maximize( {constraints: ["2*x1 <= 5", "3*x2 <= 5"], method:"evolution"})).to.equal(6);
+
+        //x1 is base and x2 is height of box
+        var expression = parser.parse("x1*x1*x2");
+        var callBack = function(stats){
+
+          var bestValue = stats.maximum;
+          if(bestValue > 2500){
+
+              done();
+
+          }
+          else {
+            throw new Error("not best value, value: ", bestValue);
+          }
+        };
+        expression.maximize( {constraints: ["4*x1 *x2 + x1*x1 <= 1200"], method:"evolution", callBack: callBack} );
+
     });
-    it('should return a solution with constrains', function () {
-        var parser = new Parser();
-        var expression = parser.parse("2*x1 + 3*x2");
-        expect(expression.maximize()).to.equal(Infinity);
-    });
+ 
   
   });
 
