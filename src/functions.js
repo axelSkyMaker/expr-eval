@@ -105,6 +105,11 @@ export function factorial(a) { // a!
   return gamma(a + 1);
 }
 
+export function simplex_maximize( expressionArray ){
+
+  return expressionArray;
+}
+
 function isInteger(value) {
   return isFinite(value) && (value === Math.round(value));
 }

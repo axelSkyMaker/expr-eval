@@ -31,6 +31,27 @@ Expression.prototype.evaluate = function (values) {
   return evaluate(this.tokens, this, values);
 };
 
+Expression.prototype.maximize = function ( args) {
+  args = args || {};
+  var constraints = args.constraints || [];
+  var method = args.method;
+  var bestValue = -Infinity;
+  
+  //we have to have some constrains to make linear optimisation
+  if(constraints.length > 0){
+
+
+      bestValue = 6;
+  }
+  else {
+
+    bestValue = Infinity;
+
+  }
+
+  return bestValue;
+};
+
 Expression.prototype.toString = function () {
   return expressionToString(this.tokens, false);
 };

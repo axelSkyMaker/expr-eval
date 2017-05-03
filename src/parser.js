@@ -32,6 +32,7 @@ import {
   gamma,
   stringLength,
   hypot,
+  simplex_maximize,
   condition
 } from './functions';
 
@@ -88,11 +89,14 @@ export function Parser(options) {
 
   this.ternaryOps = {
     '?': condition
+    
+    
   };
 
   this.functions = {
     random: random,
     fac: factorial,
+    simplex_maximize: simplex_maximize,
     min: Math.min,
     max: Math.max,
     hypot: Math.hypot || hypot,
@@ -127,6 +131,10 @@ Parser.prototype.parse = function (expr) {
 
 Parser.prototype.evaluate = function (expr, variables) {
   return this.parse(expr).evaluate(variables);
+};
+
+Parser.prototype.maximize = function (expr, variables) {
+    return this.parse(expr).maximize(variables);
 };
 
 var sharedParser = new Parser();

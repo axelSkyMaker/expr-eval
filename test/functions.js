@@ -47,6 +47,20 @@ describe('Functions', function () {
     });
   });
 
+  describe('simplex_maximize(n)', function () {
+    it('should return a solution with constrains', function () {
+        var parser = new Parser();
+        var expression = parser.parse("2*x1 + 3*x2");
+        expect(expression.maximize( {constraints: ["2*x1 <= 5", "3*x2 <= 5"], method:"evolution"})).to.equal(6);
+    });
+    it('should return a solution with constrains', function () {
+        var parser = new Parser();
+        var expression = parser.parse("2*x1 + 3*x2");
+        expect(expression.maximize()).to.equal(Infinity);
+    });
+  
+  });
+
   describe('min(a, b, ...)', function () {
     it('should return the smallest value', function () {
       var parser = new Parser();
